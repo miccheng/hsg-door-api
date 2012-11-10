@@ -12,6 +12,8 @@
 		<antcall target="lint"/>
 		<antcall target="phpunit"/>
 	</target>
+	<target name="deploy"
+		depends="deploy-af"/>
 
 	<target name="tools-parallel" description="Run tools in parallel">
 		<parallel threadCount="3">
@@ -169,6 +171,15 @@
 			<arg path="${basedir}/src/view" />
 			<arg value="--exclude" />
 			<arg path="${basedir}/tests" />
+		</exec>
+	</target>
+
+	<target name="deploy-af" description="Deploy app to AppFog">
+		<exec executable="af" failonerror="true">
+			<arg value="update" />
+			<arg value="hsgdoor_api" />
+			<arg value="--path" />
+			<arg value="${basedir}/src/" />
 		</exec>
 	</target>
 
