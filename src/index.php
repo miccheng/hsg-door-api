@@ -1,5 +1,15 @@
-<pre><?php
-require_once __DIR__ . '/vendor/autoload.php';
-//print_r(getenv('VCAP_SERVICES'));
+<?php
+require_once __DIR__ . '/config.php';
+
+$r3 = new Respect\Rest\Router;
+
+$r3->any('/', function(){
+	echo "Hello, world!<pre>";
+	$users = HSGUser::find('all');
+	foreach($users as $user)
+	{
+		$payload = $user->to_array();
+		print_r($payload);
+	}
+});
 ?>
-Ha ha...
