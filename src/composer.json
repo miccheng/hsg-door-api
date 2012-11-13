@@ -2,6 +2,6 @@
     "require": {
           "Respect/Rest": "0.5.*"
 		, "monolog/monolog": "1.2.*"
-		, "php-activerecord/php-activerecord": "dev-master"
+		, "lox/pheasant": "dev-master"
     }
 }
