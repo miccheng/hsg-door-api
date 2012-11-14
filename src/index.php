@@ -4,12 +4,20 @@ require_once __DIR__ . '/config.php';
 $r3 = new Respect\Rest\Router;
 
 $r3->any('/', function(){
-	echo "Hello, world!<pre>";
-	$users = HSGUser::find('all');
-	foreach($users as $user)
+//	$users = HSGUser::all();
+//	foreach($users as $user)
+//	{
+//		printf("My name is %s. My email is %s.<br/>", $user->username, $user->email);
+//	}
+	try
 	{
-		$payload = $user->to_array();
-		print_r($payload);
+		echo "<pre>";
+		$user_pin = new HSGPin(array('user_id'=>1, 'pin'=>123456));
+		$user_pin->save();
+	}
+	catch (Exception $ex)
+	{
+		echo "Exception: ".$ex->getMessage();
 	}
 });
 ?>

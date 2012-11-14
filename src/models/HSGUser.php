@@ -1,8 +1,21 @@
 <?php
 class HSGUser extends BaseModel
 {
-	protected $to_array_rules = array('except'=>array('id'));
-	static $table_name = 'users';
-	
+	public function tableName()
+	{
+		return 'users';
+	}
+
+	public function properties()
+	{
+		return array(
+			  'id' => new Pheasant\Types\Sequence()
+			, 'username' => new Pheasant\Types\String()
+			, 'email' => new Pheasant\Types\String()
+			, 'active' => new Pheasant\Types\Integer(1)
+			, 'created' => new Pheasant\Types\String()
+			, 'updated' => new Pheasant\Types\String()
+		);
+	}
 }
 ?>
