@@ -29,7 +29,7 @@ ActiveRecord\Config::initialize(function($cfg)
 													, $credentials['name']
 												);
 	}
-	$cfg->set_model_directory('models');
+	$cfg->set_model_directory( __DIR__ . '/lib/HSG/Model');
 	$cfg->set_connections(Config::$server_databases);
 	$db_target = getenv('HSG_DB');
 	if ($db_target === false)

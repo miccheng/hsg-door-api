@@ -2,7 +2,7 @@
 require_once __DIR__ . '/config.php';
 
 $r3 = new Respect\Rest\Router;
-$r3->always('accept', array(
+$r3->always('Accept', array(
         'application/json' => 'json_encode'
 ));
 
