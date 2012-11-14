@@ -1,8 +1,6 @@
 <?php
+define('PHP_ACTIVERECORD_AUTOLOAD_PREPEND',false);
 require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/models/BaseModel.php';
-require_once __DIR__ . '/models/HSGUser.php';
-require_once __DIR__ . '/models/HSGPin.php';
 
 class Config
 {
@@ -17,10 +15,15 @@ class Config
 	);
 }
 
-$db_target = getenv('HSG_DB');
-if ($db_target === false)
+ActiveRecord\Config::initialize(function($cfg)
 {
-	$db_target = 'production';
-}
-Pheasant::setup(Config::$server_databases[$db_target]);
+	$cfg->set_model_directory('models');
+	$cfg->set_connections(Config::$server_databases);
+	$db_target = getenv('HSG_DB');
+	if ($db_target === false)
+	{
+		$db_target = 'production';
+	}
+	$cfg->set_default_connection($db_target);
+});
 ?>

@@ -1,7 +1,18 @@
 {
+	"repositories":[
+		{
+			"type":"vcs",
+			"url":"git://github.com/ethos-development/php-activerecord.git"
+		}
+	],
     "require": {
           "Respect/Rest": "0.5.*"
 		, "monolog/monolog": "1.2.*"
-		, "lox/pheasant": "dev-master"
-    }
+		, "php-activerecord/php-activerecord": "dev-master"
+    },
+	"autoload":{
+		"psr-0":{
+			"HSG":"lib/"
+		}
+	}
 }
