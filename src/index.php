@@ -12,23 +12,19 @@ $r3->any('/', function(){
 });
 
 $r3->get('/pin/check', function(){
-	$status = 403;
+	$status_code = 403;
 	$data = array('is_valid'=>false);
 	if (!empty($_GET['pin']))
 	{
 		$code = $_GET['pin'];
-		$users = HSG\Model\Pin::first(array(
-					'conditions' => array(
-						'pin = ? AND active = 1', $code
-					)
-				));
-		if (count($users) > 0)
+		$code = trim($code);
+		$data['is_valid'] = HSG\Model\Pin::check_pin($code);
+		if ($data['is_valid'])
 		{
-			$status = 200;
-			$data['is_valid'] = true;
+			$status_code = 200;
 		}
 	}
-	$payload = new HSG\Payload($status, $data);
+	$payload = new HSG\Payload($status_code, $data);
 	return $payload;
 });
 ?>
