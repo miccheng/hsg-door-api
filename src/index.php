@@ -14,9 +14,9 @@ $r3->any('/', function(){
 $r3->get('/pin/check', function(){
 	$status_code = 403;
 	$data = array('is_valid'=>false);
-	if (!empty($_GET['pin']))
+	if (!empty($_GET['q']))
 	{
-		$code = $_GET['pin'];
+		$code = $_GET['q'];
 		$code = trim($code);
 		$data['is_valid'] = HSG\Model\Pin::check_pin($code);
 		if ($data['is_valid'])
