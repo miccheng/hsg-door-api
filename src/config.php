@@ -10,13 +10,25 @@ class Config
 
 	static $server_databases = array(
 		'sandbox' => 'mysql://root:media1@localhost/hsgdoor',
-		'development' => 'mysql://root:11password@localhost/hsgdoor',
-		'production'  => 'mysql://uq0qYMpB4U1Dy:pv2n8sEM64htw@ap01-user01.c0ye1hvnkw6z.ap-southeast-1.rds.amazonaws.com'
+		'development' => 'mysql://root:11password@localhost/hsgdoor'
 	);
 }
 
 ActiveRecord\Config::initialize(function($cfg)
 {
+	$af_vars = getenv('VCAP_SERVICES');
+	if (!empty($af_vars))
+	{
+		$af_vars = json_decode($af_vars, true);
+		$credentials = $af_vars["mysql-5.1"][0]['credentials'];
+		Config::$server_databases['production'] = sprintf(
+													'mysql://%s:%s@%s/%s'
+													, $credentials['username']
+													, $credentials['password']
+													, $credentials['hostname']
+													, $credentials['name']
+												);
+	}
 	$cfg->set_model_directory('models');
 	$cfg->set_connections(Config::$server_databases);
 	$db_target = getenv('HSG_DB');
